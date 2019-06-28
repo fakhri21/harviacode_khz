@@ -5,11 +5,8 @@ $string = "<?php
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-
-    class " . $c . " extends CI_Controller
+class " . $c . " extends CI_Controller
 {
-    public \$nama_template=\"template_admin\";
-
     function __construct()
     {
         parent::__construct();
@@ -53,14 +50,14 @@ $string .= "\n\n    public function index()
             'total_rows' => \$config['total_rows'],
             'start' => \$start,
         );
-        \$this->template->load(\$this->nama_template,'$c_url/$v_list', \$data);
+        \$this->load->view('$c_url/$v_list', \$data);
     }";
 
 } else {
     
 $string .="\n\n    public function index()
     {
-        \$this->template->load(\$this->nama_template,'$c_url/$v_list');
+        \$this->load->view('$c_url/$v_list');
     } 
     
     public function json() {
@@ -79,7 +76,7 @@ foreach ($all as $row) {
     $string .= "\n\t\t'" . $row['column_name'] . "' => \$row->" . $row['column_name'] . ",";
 }
 $string .= "\n\t    );
-            \$this->template->load(\$this->nama_template,'$c_url/$v_read', \$data);
+            \$this->load->view('$c_url/$v_read', \$data);
         } else {
             \$this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('$c_url'));
@@ -95,7 +92,7 @@ foreach ($all as $row) {
     $string .= "\n\t    '" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "'),";
 }
 $string .= "\n\t);
-        \$this->template->load(\$this->nama_template,'$c_url/$v_form', \$data);
+        \$this->load->view('$c_url/$v_form', \$data);
     }
     
     public function create_action() 
@@ -129,7 +126,7 @@ foreach ($all as $row) {
     $string .= "\n\t\t'" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "', \$row->". $row['column_name']."),";
 }
 $string .= "\n\t    );
-            \$this->template->load(\$this->nama_template,'$c_url/$v_form', \$data);
+            \$this->load->view('$c_url/$v_form', \$data);
         } else {
             \$this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('$c_url'));
@@ -236,7 +233,7 @@ if ($export_word == '1') {
             'start' => 0
         );
         
-        \$this->template->load(\$this->nama_template,'" . $c_url ."/". $v_doc . "',\$data);
+        \$this->load->view('" . $c_url ."/". $v_doc . "',\$data);
     }";
 }
 
@@ -249,7 +246,7 @@ if ($export_pdf == '1') {
         );
         
         ini_set('memory_limit', '32M');
-        \$html = \$this->template->load(\$this->nama_template,'" . $c_url ."/". $v_pdf . "', \$data, true);
+        \$html = \$this->load->view('" . $c_url ."/". $v_pdf . "', \$data, true);
         \$this->load->library('pdf');
         \$pdf = \$this->pdf->load();
         \$pdf->WriteHTML(\$html);

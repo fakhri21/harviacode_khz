@@ -1,15 +1,18 @@
 <?php 
 
-$string = "
-<div class=\"col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12\">
-<div class=\"card mt-5 mb-5\">
-    <div class=\"card-body\">
-       
-       <div class=\"mt-2 mb-2\">
-           <h3 class=\"text-center\">".ucfirst($table_name)."</h3>
-       </div>
-       
-    
+$string = "<!doctype html>
+<html>
+    <head>
+        <title>harviacode.com - codeigniter crud generator</title>
+        <link rel=\"stylesheet\" href=\"<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>\"/>
+        <style>
+            body{
+                padding: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 style=\"margin-top:0px\">".ucfirst($table_name)." <?php echo \$button ?></h2>
         <form action=\"<?php echo \$action; ?>\" method=\"post\">";
 foreach ($non_pk as $row) {
     if ($row["data_type"] == 'text')
@@ -27,12 +30,11 @@ foreach ($non_pk as $row) {
     }
 }
 $string .= "\n\t    <input type=\"hidden\" name=\"".$pk."\" value=\"<?php echo $".$pk."; ?>\" /> ";
-$string .= "\n\t    <button type=\"submit\" class=\"btn btn-primary\"><i class=\"fa fa-save\"></i> <?php echo \$button ?></button> ";
-$string .= "\n\t    <a href=\"<?php echo base_url('".$c_url."') ?>\" class=\"btn btn-warning\"><i class=\"fa fa-angle-left\"></i> Cancel</a>";
+$string .= "\n\t    <button type=\"submit\" class=\"btn btn-primary\"><?php echo \$button ?></button> ";
+$string .= "\n\t    <a href=\"<?php echo site_url('".$c_url."') ?>\" class=\"btn btn-default\">Cancel</a>";
 $string .= "\n\t</form>
-    </div>
-</div>
-</div>";
+    </body>
+</html>";
 
 $hasil_view_form = createFile($string, $target."views/"  . $v_form_file);
 

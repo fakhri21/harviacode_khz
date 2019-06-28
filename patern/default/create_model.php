@@ -31,9 +31,7 @@ $string .="\n\n    // datatables
         \$this->datatables->from('".$table_name."');
         //add this line for join
         //\$this->datatables->join('table2', '".$table_name.".field = table2.field');
-        \$this->datatables->add_column('action', anchor(base_url('".$c_url."/read/\$1'),'<button class=\"btn btn-primary btn-sm\"><i class=\"fa fa-angle-right\"></i> Lihat</button>').\" 
-                                                \".anchor(base_url('".$c_url."/update/\$1'),'<button class=\"btn btn-success btn-sm\"><i class=\"fa fa-edit\"></i> Ubah</button>').\" 
-                                                \".anchor(base_url('".$c_url."/delete/\$1'),'<button class=\"btn btn-danger btn-sm\"><i class=\"fa fa-trash\"></i> Hapus</button>','onclick=\"javasciprt: return confirm(\\'Are You Sure ?\\')\"'), '$pk');
+        \$this->datatables->add_column('action', anchor(site_url('".$c_url."/read/\$1'),'Read').\" | \".anchor(site_url('".$c_url."/update/\$1'),'Update').\" | \".anchor(site_url('".$c_url."/delete/\$1'),'Delete','onclick=\"javasciprt: return confirm(\\'Are You Sure ?\\')\"'), '$pk');
         return \$this->datatables->generate();
     }";
 }
@@ -80,7 +78,6 @@ $string .= "\n\t\$this->db->limit(\$limit, \$start);
     // insert data
     function insert(\$data)
     {
-        \$this->db->set('uniqid','UUID_SHORT()',FALSE);
         \$this->db->insert(\$this->table, \$data);
     }
 
